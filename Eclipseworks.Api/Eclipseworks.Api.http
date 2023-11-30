@@ -1,0 +1,6 @@
+@Eclipseworks.Api_HostAddress = http://localhost:5001
+
+GET {{Eclipseworks.Api_HostAddress}}
+Accept: application/json
+
+###
