@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Linq.Expressions;
 
 namespace Eclipseworks.Teste.ControllerTests
 {
@@ -37,7 +38,13 @@ namespace Eclipseworks.Teste.ControllerTests
 
             _mapper.Setup(m => m.Map<List<Usuario>>(models)).Returns(entidades);
             _mapper.Setup(m => m.Map<List<UsuarioModel>>(entidades)).Returns(models);
-            _mockRepositoryoUsuario.Setup(r => r.ListAsync(null, null, true, null)).ReturnsAsync(entidades);
+            //_mockRepositoryoUsuario.Setup(r => r.ListAsync(null, null, true)).ReturnsAsync(entidades);
+            _mockRepositoryoUsuario.Setup(repo => repo.ListAsync(
+                It.IsAny<Expression<Func<Usuario, bool>>>(), // Filtro
+                It.IsAny<Func<IQueryable<Usuario>, IOrderedQueryable<Usuario>>>(), // Ordenação
+                It.IsAny<bool>(), // AsNoTracking
+                It.IsAny<Expression<Func<Usuario, object>>[]>() // Includes
+            )).ReturnsAsync(entidades);
 
             // Act
             var resultado = await _usuarioController.List();
@@ -46,7 +53,12 @@ namespace Eclipseworks.Teste.ControllerTests
             Assert.IsInstanceOf<ActionResult<IList<UsuarioModel>>>(resultado);
             Assert.IsInstanceOf<List<UsuarioModel>>(resultado.Value);
             Assert.AreEqual(entidades.Count, resultado.Value.Count);
-            _mockRepositoryoUsuario.Verify(r => r.ListAsync(null, null, true, null), Times.Once);
+            _mockRepositoryoUsuario.Verify(r => r.ListAsync(
+                It.IsAny<Expression<Func<Usuario, bool>>>(), // Filtro
+                It.IsAny<Func<IQueryable<Usuario>, IOrderedQueryable<Usuario>>>(), // Ordenação
+                It.IsAny<bool>(), // AsNoTracking
+                It.IsAny<Expression<Func<Usuario, object>>[]>() // Includes
+                ), Times.Once);
 
         }
 
@@ -60,7 +72,9 @@ namespace Eclipseworks.Teste.ControllerTests
             var entidade = new Usuario { Id = 1 };
             var model = new UsuarioModel { Id = 1, };
             _mapper.Setup(m => m.Map<UsuarioModel>(entidade)).Returns(model);
-            _mockRepositoryoUsuario.Setup(r => r.GetAsync(id, true, null)).ReturnsAsync(entidade);
+            _mockRepositoryoUsuario.Setup(r => r.GetAsync(id, It.IsAny<bool>(), // AsNoTracking
+                It.IsAny<Expression<Func<Usuario, object>>[]>() // Includes
+                                                                )).ReturnsAsync(entidade);
 
             // Act
             var resultado = await _usuarioController.Get(id);
@@ -69,7 +83,7 @@ namespace Eclipseworks.Teste.ControllerTests
             Assert.IsInstanceOf<ActionResult<UsuarioModel>>(resultado);
             Assert.IsInstanceOf<UsuarioModel>(resultado.Value);
             Assert.AreEqual(entidade.Id, resultado.Value.Id);
-            _mockRepositoryoUsuario.Verify(r => r.GetAsync(id, true, null), Times.Once);
+            _mockRepositoryoUsuario.Verify(r => r.GetAsync(id, It.IsAny<bool>(), It.IsAny<Expression<Func<Usuario, object>>[]>()), Times.Once);
 
         }
 
