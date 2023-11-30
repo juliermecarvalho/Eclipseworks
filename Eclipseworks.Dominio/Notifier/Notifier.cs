@@ -1,4 +1,5 @@
 ﻿using Eclipseworks.Dominio.Notifier.Interfaces;
+using FluentValidation.Results;
 
 namespace Eclipseworks.Dominio.Notifier;
 
@@ -22,7 +23,15 @@ public class Notifier : INotifier
             _notificacoes.Add(new Notifications(msg));
         }
     }
-    
+
+    public void Add(ValidationResult validationResult)
+    {
+        foreach (var error in validationResult.Errors)
+        {
+            _notificacoes.Add(new Notifications(error.ErrorMessage));
+        }
+    }
+
     public void Add(Exception exception)
     {
         string mensagemDeErro = exception.Message;

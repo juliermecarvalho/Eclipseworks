@@ -1,11 +1,8 @@
-﻿using System.Diagnostics;
-using Eclipseworks.Api;
+﻿using Eclipseworks.Api;
 using Eclipseworks.Api.LogsAplicacao;
 using Eclipseworks.Persistencia;
-using Eclipseworks.Persistencia.Contexto;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

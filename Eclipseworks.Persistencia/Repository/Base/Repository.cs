@@ -9,10 +9,10 @@ namespace Eclipseworks.Persistencia.Repository.Base;
 
 public abstract class Repository<TEntidade> : IRepository<TEntidade> where TEntidade : Entity
 {
-    protected readonly UnitofWork UnitofWork;
+    protected readonly IUnitofWork UnitofWork;
     private readonly INotifier _notifier;
 
-    protected Repository(UnitofWork unitofWork, INotifier notifier)
+    protected Repository(IUnitofWork unitofWork, INotifier notifier)
     {
         UnitofWork = unitofWork;
         _notifier = notifier;
