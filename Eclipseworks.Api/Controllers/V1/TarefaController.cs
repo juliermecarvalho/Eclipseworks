@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using AutoMapper;
 using Eclipseworks.Api.Models;
 using Eclipseworks.Api.Validation.ValidateAttribute;
@@ -36,6 +37,20 @@ public class TarefaController : ControllerBase
     }
 
 
+    /// <summary>
+    /// A API deve fornecer endpoints para gerar relatórios de desempenho, como o número médio de tarefas concluídas por usuário nos últimos 30 dias.
+    /// </summary>
+    /// <param name="projetoId"></param>
+    /// <returns></returns>
+    [HttpGet("listar/relatorios-de-desempenho/{usuarioId:long}")]
+    public async Task<ActionResult<IList<TarefaModel>>> GerarRelatóriosDeDesempenho([FromRoute] long usuarioId)
+    {
+        var dt = DateTime.Now.AddDays(-30);
+        var entidades = await _repositoryTarefa.ListAsync(filter: t => t.UsuarioId == usuarioId && t.Status == Status.Concluida && t.DataVencimento > dt);
+        return _mapper.Map<List<TarefaModel>>(entidades);
+    }
+
+
 
 
     [HttpGet("{id:long}")]
@@ -57,6 +72,14 @@ public class TarefaController : ControllerBase
     [ValidateModel(typeof(TarefaModel))]
     public async Task<ActionResult<TarefaModel>> Post([FromBody] TarefaModel model)
     {
+        var projetoCount = _repositoryTarefa.ListAsync(filter: t => t.ProjetoId == model.ProjetoId).Result.Count();
+
+        if (projetoCount > 20)
+        {
+            return BadRequest("Limite máximo de 20 tarefas por projeto");
+        }
+
+        
         var entidade = _mapper.Map<Tarefa>(model);
         entidade.SetPrioridade((Prioridade)model.Prioridade);
         await _repositoryTarefa.SaveAsync(entidade);
@@ -87,9 +110,8 @@ public class TarefaController : ControllerBase
         {
             entidade.Descricao = model.Descricao;
         }
-
       
-        entidade.Status = (Status)model.Status;
+        entidade.SetStatus((Status)model.Status);
 
         await _repositoryTarefa.SaveAsync(entidade);
         await _repositoryTarefa.CommitAsync(model.UsuarioId);
@@ -105,6 +127,8 @@ public class TarefaController : ControllerBase
     [IdMaiorQueZero]
     public async Task<ActionResult> Delete([FromRoute]long id, [FromQuery] long usuarioId)
     {
+
+    
         await _repositoryTarefa.DeleteAsync(id);
         await _repositoryTarefa.CommitAsync(usuarioId);
         return Ok();

@@ -14,5 +14,7 @@ public class UsuarioModelValidator : AbstractValidator<UsuarioModel>
             .NotEmpty()
             .WithMessage("O campo {PropertyName} é obrigatório");
 
+
+
     }
 }

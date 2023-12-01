@@ -18,12 +18,11 @@ public class MapHistorico : IEntityTypeConfiguration<Historico>
         builder.Property(x => x.Campo ).HasColumnName("campo").HasMaxLength(250).IsRequired();
         builder.Property(x => x.ValorAntigo ).HasColumnName("valor_antigo").HasMaxLength(250).IsRequired(false);
         builder.Property(x => x.NovoValor ).HasColumnName("novo_valor").HasMaxLength(250).IsRequired(false);
-
-        builder.Property(x => x.UsuarioId).HasColumnName("usuario_id").IsRequired();
-        builder.HasOne(x => x.Usuario).WithMany(x => x.Historicos).HasForeignKey(x => x.UsuarioId).OnDelete(DeleteBehavior.Restrict);
-        
         builder.Property(x => x.TarefaId).HasColumnName("tarefa_id").IsRequired();
-        builder.HasOne(x => x.Tarefa).WithMany(x => x.Historicos).HasForeignKey(x => x.TarefaId);
+     
+        builder.Property(x => x.UsuarioId).HasColumnName("usuario_id").IsRequired();
+        
+        
 
 
 

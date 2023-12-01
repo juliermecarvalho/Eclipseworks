@@ -92,8 +92,6 @@ namespace Eclipseworks.Persistencia.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TarefaId");
-
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("historicos", (string)null);
@@ -134,6 +132,9 @@ namespace Eclipseworks.Persistencia.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime?>("DataConclucao")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DataVencimento")
                         .HasColumnType("datetime2")
                         .HasColumnName("data_vencimento");
@@ -153,7 +154,7 @@ namespace Eclipseworks.Persistencia.Migrations
 
                     b.Property<int>("Status")
                         .HasColumnType("int")
-                        .HasColumnName("status ");
+                        .HasColumnName("status");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
@@ -161,9 +162,14 @@ namespace Eclipseworks.Persistencia.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("titulo");
 
+                    b.Property<long>("UsuarioId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProjetoId");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("tarefas", (string)null);
                 });
@@ -176,6 +182,11 @@ namespace Eclipseworks.Persistencia.Migrations
                         .HasColumnName("id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Funcao")
+                        .HasMaxLength(250)
+                        .HasColumnType("int")
+                        .HasColumnName("funcao");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -201,21 +212,11 @@ namespace Eclipseworks.Persistencia.Migrations
 
             modelBuilder.Entity("Eclipseworks.Dominio.Core.Historico", b =>
                 {
-                    b.HasOne("Eclipseworks.Dominio.Core.Tarefa", "Tarefa")
-                        .WithMany("Historicos")
-                        .HasForeignKey("TarefaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Eclipseworks.Dominio.Core.Usuario", "Usuario")
+                    b.HasOne("Eclipseworks.Dominio.Core.Usuario", null)
                         .WithMany("Historicos")
                         .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Tarefa");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Eclipseworks.Dominio.Core.Projeto", b =>
@@ -237,7 +238,15 @@ namespace Eclipseworks.Persistencia.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Eclipseworks.Dominio.Core.Usuario", "Usuario")
+                        .WithMany("Tarefas")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Projeto");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Eclipseworks.Dominio.Core.Projeto", b =>
@@ -248,8 +257,6 @@ namespace Eclipseworks.Persistencia.Migrations
             modelBuilder.Entity("Eclipseworks.Dominio.Core.Tarefa", b =>
                 {
                     b.Navigation("Comentarios");
-
-                    b.Navigation("Historicos");
                 });
 
             modelBuilder.Entity("Eclipseworks.Dominio.Core.Usuario", b =>
@@ -257,6 +264,8 @@ namespace Eclipseworks.Persistencia.Migrations
                     b.Navigation("Historicos");
 
                     b.Navigation("Projetos");
+
+                    b.Navigation("Tarefas");
                 });
 #pragma warning restore 612, 618
         }

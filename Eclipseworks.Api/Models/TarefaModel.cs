@@ -7,6 +7,8 @@ public class TarefaModel
     public string Titulo { get; set; }
     public string Descricao { get; set; }
     public DateTime DataVencimento { get; set; }
+    public DateTime? DataConclucao { get; set; }
+
     public int Status  { get; set; }
     public int Prioridade { get; private set; }
     public long ProjetoId { get; set; }

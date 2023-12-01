@@ -13,8 +13,10 @@ public class MapUsuario : IEntityTypeConfiguration<Usuario>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).HasColumnName("id");
         builder.Property(x => x.Nome).HasColumnName("nome").HasMaxLength(250).IsRequired();
+        builder.Property(x => x.Funcao).HasColumnName("funcao").HasMaxLength(250).IsRequired();
 
         builder.HasMany(x => x.Projetos).WithOne(x => x.CriadorDoProjeto).HasForeignKey(x => x.CriadorDoProjetoId);
-        builder.HasMany(x => x.Historicos).WithOne(x => x.Usuario).HasForeignKey(x => x.UsuarioId);
+       
+        builder.HasMany(x => x.Tarefas).WithOne(x => x.Usuario).HasForeignKey(x => x.UsuarioId).OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -7,13 +7,16 @@ public class Tarefa : Entity
     public string Titulo { get; set; }
     public string Descricao { get; set; }
     public DateTime DataVencimento { get; set; }
+    public DateTime? DataConclucao { get; set; }
+
     public Status Status  { get; set; }
     public Prioridade Prioridade  { get; private set; }
     public long ProjetoId { get; set; }
     public Projeto Projeto { get; set; }
-    
+    public long UsuarioId { get; set; }
+    public Usuario Usuario { get; set; }
+
     public IList<Comentario> Comentarios { get; set; } = new List<Comentario>();
-    public IList<Historico> Historicos { get; set; } = new List<Historico>();
 
 
     /// <summary>
@@ -25,6 +28,16 @@ public class Tarefa : Entity
         if (Id == 0)
         {
             Prioridade = prioridade;
+        }
+    }
+
+    public void SetStatus(Status status)
+    {
+        Status = status;
+
+        if (Status == Status.Concluida)
+        {
+            DataConclucao = DateTime.Now;
         }
     }
 }
