@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eclipseworks.Persistencia.Migrations
 {
     [DbContext(typeof(EclipseworksContext))]
-    [Migration("20231201000526_usuarioid")]
-    partial class usuarioid
+    [Migration("20231201172645_cascade")]
+    partial class cascade
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,11 +65,6 @@ namespace Eclipseworks.Persistencia.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("campo");
 
-                    b.Property<string>("CampoId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("campo_id");
-
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2")
                         .HasColumnName("data");
@@ -85,6 +80,10 @@ namespace Eclipseworks.Persistencia.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("operacao");
 
+                    b.Property<long>("TarefaId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("tarefa_id");
+
                     b.Property<long>("UsuarioId")
                         .HasColumnType("bigint")
                         .HasColumnName("usuario_id");
@@ -95,6 +94,8 @@ namespace Eclipseworks.Persistencia.Migrations
                         .HasColumnName("valor_antigo");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TarefaId");
 
                     b.HasIndex("UsuarioId");
 
@@ -145,12 +146,6 @@ namespace Eclipseworks.Persistencia.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("descricao");
-
-                    b.Property<string>("Detalhes")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
-                        .HasColumnName("detalhes");
 
                     b.Property<int>("Prioridade")
                         .HasColumnType("int");
@@ -209,11 +204,19 @@ namespace Eclipseworks.Persistencia.Migrations
 
             modelBuilder.Entity("Eclipseworks.Dominio.Core.Historico", b =>
                 {
+                    b.HasOne("Eclipseworks.Dominio.Core.Tarefa", "Tarefa")
+                        .WithMany("Historicos")
+                        .HasForeignKey("TarefaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Eclipseworks.Dominio.Core.Usuario", "Usuario")
                         .WithMany("Historicos")
                         .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Tarefa");
 
                     b.Navigation("Usuario");
                 });
@@ -248,6 +251,8 @@ namespace Eclipseworks.Persistencia.Migrations
             modelBuilder.Entity("Eclipseworks.Dominio.Core.Tarefa", b =>
                 {
                     b.Navigation("Comentarios");
+
+                    b.Navigation("Historicos");
                 });
 
             modelBuilder.Entity("Eclipseworks.Dominio.Core.Usuario", b =>

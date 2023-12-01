@@ -46,7 +46,7 @@ public class HistoricoControllerTests
             )).ReturnsAsync(entidades);
 
         // Act
-        var resultado = await _historicoController.List();
+        var resultado = await _historicoController.List(5);
 
         // Assert
         Assert.IsInstanceOf<ActionResult<IList<HistoricoModel>>>(resultado);

@@ -121,7 +121,7 @@ public class TarefaControllerTests
             Id = tarefaId,
             Titulo = "Título Antigo",
             Descricao = "Descrição Antiga",
-            Detalhes = "Descrição Antiga",
+
             Status = Status.Pendente
         };
 
@@ -129,7 +129,6 @@ public class TarefaControllerTests
         {
             Titulo = "Novo Título",
             Descricao = "Nova Descrição",
-            Detalhes = "Nova Descrição",
             Status = (int)Status.Concluida,
             UsuarioId = 1
             

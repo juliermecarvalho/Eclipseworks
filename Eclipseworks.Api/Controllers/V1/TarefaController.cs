@@ -31,7 +31,7 @@ public class TarefaController : ControllerBase
     [HttpGet("listar/tarefas-do-projeto/{projetoId:long}")]
     public async Task<ActionResult<IList<TarefaModel>>> ListTarefasDoProjeto([FromRoute] long projetoId)
     {
-        var entidades = await _repositoryTarefa.ListAsync(filter: t => t.ProjetoId == projetoId);
+        var entidades = await _repositoryTarefa.ListAsync(filter: t => t.ProjetoId == projetoId, includes: t => t.Comentarios);
         return _mapper.Map<List<TarefaModel>>(entidades);
     }
 
@@ -42,7 +42,7 @@ public class TarefaController : ControllerBase
     [IdMaiorQueZero]
     public async Task<ActionResult<TarefaModel>> Get([FromRoute] int id)
     {
-        var entidade = await _repositoryTarefa.GetAsync(id);
+        var entidade = await _repositoryTarefa.GetAsync(id, includes: t => t.Comentarios);
         return _mapper.Map<TarefaModel>(entidade);
     }
 
@@ -88,10 +88,7 @@ public class TarefaController : ControllerBase
             entidade.Descricao = model.Descricao;
         }
 
-        if (!string.IsNullOrWhiteSpace(model.Detalhes))
-        {
-            entidade.Detalhes = model.Detalhes;
-        }
+      
         entidade.Status = (Status)model.Status;
 
         await _repositoryTarefa.SaveAsync(entidade);
@@ -125,7 +122,7 @@ public class TarefaController : ControllerBase
         var entidade = await _repositoryTarefa.GetAsync(id);
         if (entidade == null)
         {
-            return BadRequest("Tarefa não localizada.");
+            return BadRequest("TituloDaTarefa não localizada.");
         }
 
         entidade.Comentarios.Add(new Comentario { Texto = texto });

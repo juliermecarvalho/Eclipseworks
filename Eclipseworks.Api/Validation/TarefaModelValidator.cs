@@ -22,13 +22,6 @@ public class TarefaModelValidator : AbstractValidator<TarefaModel>
             .NotEmpty()
             .WithMessage("O campo {PropertyName} é obrigatório");
 
-        RuleFor(x => x.Detalhes)
-            .Length(0, 500)
-            .WithMessage("O campo {PropertyName} é tem tamanho máximo de 500")
-            .NotNull()
-            .WithMessage("O campo {PropertyName} é obrigatório")
-            .NotEmpty()
-            .WithMessage("O campo {PropertyName} é obrigatório");
 
         RuleFor(x => x.DataVencimento)
             .NotNull()

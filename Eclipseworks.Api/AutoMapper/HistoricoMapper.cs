@@ -9,6 +9,8 @@ public class HistoricoMapper : Profile
     public HistoricoMapper()
     {
         CreateMap<Historico, HistoricoModel>()
-            .ReverseMap();
+            .ForMember(dest => dest.NomeUsuario, opt => opt.MapFrom(o => o.Usuario.Nome))
+            .ForMember(dest => dest.TituloDaTarefa, opt => opt.MapFrom(o => o.Tarefa.Titulo));
+
     }
 }

@@ -1,5 +1,7 @@
+using System.Linq.Expressions;
 using AutoMapper;
 using Eclipseworks.Api.Models;
+using Eclipseworks.Dominio.Core;
 using Eclipseworks.Dominio.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,10 +23,17 @@ public class HistoricoController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpGet("listar")]
-    public async Task<ActionResult<IList<HistoricoModel>>> List()
+    [HttpGet("listar/{tarefaId:long}")]
+    public async Task<ActionResult<IList<HistoricoModel>>> List([FromRoute] long tarefaId)
     {
-        var entidades = await _repositoryHistorico.ListAsync();
+        var includes =
+            new Expression<Func<Historico, object>>[]
+            {
+                u => u.Tarefa,
+                u => u.Usuario
+            };
+
+        var entidades = await _repositoryHistorico.ListAsync(filter: h => h.TarefaId == tarefaId, includes: includes);
         return _mapper.Map<List<HistoricoModel>>(entidades);
     }
 

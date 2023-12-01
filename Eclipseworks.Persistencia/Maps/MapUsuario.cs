@@ -15,5 +15,6 @@ public class MapUsuario : IEntityTypeConfiguration<Usuario>
         builder.Property(x => x.Nome).HasColumnName("nome").HasMaxLength(250).IsRequired();
 
         builder.HasMany(x => x.Projetos).WithOne(x => x.CriadorDoProjeto).HasForeignKey(x => x.CriadorDoProjetoId);
+        builder.HasMany(x => x.Historicos).WithOne(x => x.Usuario).HasForeignKey(x => x.UsuarioId);
     }
 }

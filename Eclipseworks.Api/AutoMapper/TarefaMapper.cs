@@ -12,3 +12,12 @@ public class TarefaMapper : Profile
             .ReverseMap();
     }
 }
+
+public class ComentarioMapper : Profile
+{
+    public ComentarioMapper()
+    {
+        CreateMap<Comentario, ComentarioModel>()
+            .ReverseMap();
+    }
+}

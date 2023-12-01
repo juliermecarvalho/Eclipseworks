@@ -10,6 +10,7 @@ public class Historico : Entity
 
     public string Operacao  { get; set; }
     public long TarefaId { get; set; }
+    public Tarefa Tarefa { get; set; }
     public string Campo  { get; set; }
     public string ValorAntigo  { get; set; }
     public string NovoValor  { get; set; }

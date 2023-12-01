@@ -6,7 +6,6 @@ public class TarefaModel
     public long Id { get; set; }
     public string Titulo { get; set; }
     public string Descricao { get; set; }
-    public string Detalhes { get; set; }
     public DateTime DataVencimento { get; set; }
     public int Status  { get; set; }
     public int Prioridade { get; private set; }
@@ -17,4 +16,11 @@ public class TarefaModel
     /// </summary>
     public long UsuarioId { get; set; }
 
+    public IList<ComentarioModel> Comentarios { get; set; } = new List<ComentarioModel>();
+
+}
+
+public class ComentarioModel
+{ 
+    public string Texto { get; set; }
 }
