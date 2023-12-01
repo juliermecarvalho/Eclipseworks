@@ -7,7 +7,7 @@ namespace Eclipseworks.Persistencia.Repository.Base;
 
 public class UnitofWork : IUnitofWork
 {
-    private readonly DbContext _context;
+    private readonly EclipseworksContext _context;
     private readonly INotifier _notifier;
 
     public UnitofWork(EclipseworksContext context, INotifier notifier)
@@ -18,11 +18,11 @@ public class UnitofWork : IUnitofWork
 
     public DbContext Context => _context;
 
-    public async Task Commit()
+    public async Task Commit(long usuarioId)
     {
         if (!_notifier.HasNotification)
         {
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(usuarioId);
         }
     }
 

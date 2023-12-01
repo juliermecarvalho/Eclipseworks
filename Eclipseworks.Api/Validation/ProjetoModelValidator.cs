@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Eclipseworks.Api.Validation;
 
-public class UsuarioModelValidator : AbstractValidator<UsuarioModel>
+public class ProjetoModelValidator : AbstractValidator<ProjetoModel>
 {
-    public UsuarioModelValidator()
+    public ProjetoModelValidator()
     {
 
         RuleFor(x => x.Nome)

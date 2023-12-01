@@ -4,6 +4,7 @@ using Eclipseworks.Persistencia.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eclipseworks.Persistencia.Migrations
 {
     [DbContext(typeof(EclipseworksContext))]
-    partial class EclipseworksContextModelSnapshot : ModelSnapshot
+    [Migration("20231201000526_usuarioid")]
+    partial class usuarioid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,6 +65,11 @@ namespace Eclipseworks.Persistencia.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("campo");
 
+                    b.Property<string>("CampoId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("campo_id");
+
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2")
                         .HasColumnName("data");
@@ -76,10 +84,6 @@ namespace Eclipseworks.Persistencia.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("operacao");
-
-                    b.Property<long>("TarefaId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("tarefa_id");
 
                     b.Property<long>("UsuarioId")
                         .HasColumnType("bigint")

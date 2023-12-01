@@ -4,6 +4,7 @@ using Eclipseworks.Persistencia.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eclipseworks.Persistencia.Migrations
 {
     [DbContext(typeof(EclipseworksContext))]
-    partial class EclipseworksContextModelSnapshot : ModelSnapshot
+    [Migration("20231130205240_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,9 +65,20 @@ namespace Eclipseworks.Persistencia.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("campo");
 
+                    b.Property<string>("CampoId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("campo_id");
+
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2")
                         .HasColumnName("data");
+
+                    b.Property<string>("NomeUsuario")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("nome_usuario");
 
                     b.Property<string>("NovoValor")
                         .HasMaxLength(250)
@@ -77,10 +91,6 @@ namespace Eclipseworks.Persistencia.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("operacao");
 
-                    b.Property<long>("TarefaId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("tarefa_id");
-
                     b.Property<long>("UsuarioId")
                         .HasColumnType("bigint")
                         .HasColumnName("usuario_id");
@@ -91,8 +101,6 @@ namespace Eclipseworks.Persistencia.Migrations
                         .HasColumnName("valor_antigo");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("historicos", (string)null);
                 });
@@ -203,17 +211,6 @@ namespace Eclipseworks.Persistencia.Migrations
                     b.Navigation("Tarefa");
                 });
 
-            modelBuilder.Entity("Eclipseworks.Dominio.Core.Historico", b =>
-                {
-                    b.HasOne("Eclipseworks.Dominio.Core.Usuario", "Usuario")
-                        .WithMany("Historicos")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
             modelBuilder.Entity("Eclipseworks.Dominio.Core.Projeto", b =>
                 {
                     b.HasOne("Eclipseworks.Dominio.Core.Usuario", "CriadorDoProjeto")
@@ -248,8 +245,6 @@ namespace Eclipseworks.Persistencia.Migrations
 
             modelBuilder.Entity("Eclipseworks.Dominio.Core.Usuario", b =>
                 {
-                    b.Navigation("Historicos");
-
                     b.Navigation("Projetos");
                 });
 #pragma warning restore 612, 618

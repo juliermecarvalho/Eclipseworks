@@ -3,6 +3,6 @@ using Eclipseworks.Dominio.IRepository.Base;
 
 namespace Eclipseworks.Dominio.IRepository;
 
-public interface IRepositoryUsuario : IRepository<Usuario>
+public interface IRepositoryHistorico : IRepository<Historico>
 {
 }

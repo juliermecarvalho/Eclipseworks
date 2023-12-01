@@ -6,11 +6,9 @@ using Eclipseworks.Persistencia.Repository.Base;
 
 namespace Eclipseworks.Persistencia.Repository;
 
-public class RepositoryUsuario : Repository<Usuario>, IRepositoryUsuario
+public class RepositoryProjeto : Repository<Projeto>, IRepositoryProjeto
 {
-     
-    public RepositoryUsuario(IUnitofWork unitofWork, INotifier notifier) 
-        : base(unitofWork, notifier)
+    public RepositoryProjeto(IUnitofWork unitofWork, INotifier notifier) : base(unitofWork, notifier)
     {
     }
 }

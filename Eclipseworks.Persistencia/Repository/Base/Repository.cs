@@ -77,23 +77,23 @@ public abstract class Repository<TEntidade> : IRepository<TEntidade> where TEnti
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="filtro"></param>
-    /// <param name="ordenarPor"></param>
+    /// <param name="filter"></param>
+    /// <param name="orderBy"></param>
     /// <param name="includes"></param>
     /// <returns></returns>
     public virtual async Task<IEnumerable<TEntidade>> ListAsync(
-        Expression<Func<TEntidade, bool>>? filtro = null,
-        Func<IQueryable<TEntidade>, IOrderedQueryable<TEntidade>>? ordenarPor = null,
+        Expression<Func<TEntidade, bool>>? filter = null,
+        Func<IQueryable<TEntidade>, IOrderedQueryable<TEntidade>>? orderBy = null,
         bool asNoTracking = true,
         params Expression<Func<TEntidade, object>>[] includes)
     {
         var query = UnitofWork.Context.Set<TEntidade>().AsQueryable();
-        if (filtro is not null)
+        if (filter is not null)
         {
-            query = query.Where(filtro);
+            query = query.Where(filter);
         }
 
-        query = ordenarPor is not null ? ordenarPor(query) : query.OrderBy(q => q.Id);
+        query = orderBy is not null ? orderBy(query) : query.OrderBy(q => q.Id);
 
         query = includes
             .Aggregate(
@@ -106,9 +106,9 @@ public abstract class Repository<TEntidade> : IRepository<TEntidade> where TEnti
     }
 
     
-    public async Task CommitAsync()
+    public async Task CommitAsync(long usuarioId)
     {
-        await UnitofWork.Commit();
+        await UnitofWork.Commit(usuarioId);
     }
 
     public void Dispose()

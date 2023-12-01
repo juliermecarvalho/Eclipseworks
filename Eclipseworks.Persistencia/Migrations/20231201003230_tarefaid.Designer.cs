@@ -4,6 +4,7 @@ using Eclipseworks.Persistencia.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eclipseworks.Persistencia.Migrations
 {
     [DbContext(typeof(EclipseworksContext))]
-    partial class EclipseworksContextModelSnapshot : ModelSnapshot
+    [Migration("20231201003230_tarefaid")]
+    partial class tarefaid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -4,11 +4,11 @@ using Eclipseworks.Dominio.Core;
 
 namespace Eclipseworks.Api.AutoMapper;
 
-public class UsuarioMapper : Profile
+public class ProjetoMapper : Profile
 {
-    public UsuarioMapper()
+    public ProjetoMapper()
     {
-        CreateMap<Usuario, UsuarioModel>()
+        CreateMap<Projeto, ProjetoModel>()
             .ReverseMap();
     }
 }

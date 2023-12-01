@@ -6,5 +6,5 @@ public interface IUnitofWork : IDisposable
 {
     DbContext Context { get; }
 
-    Task Commit();
+    Task Commit(long usuarioId);
 }

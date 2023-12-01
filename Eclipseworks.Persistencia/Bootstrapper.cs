@@ -1,4 +1,5 @@
 ﻿using Eclipseworks.Dominio.IRepository.Base;
+using Eclipseworks.Persistencia.Contexto;
 using Eclipseworks.Persistencia.Repository.Base;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,6 +9,7 @@ public static class Bootstrapper
 {
     public static IServiceCollection AddInfraPersistencia(this IServiceCollection services)
     {
+        services.AddScoped<EclipseworksContext>();
         services.AddScoped<IUnitofWork, UnitofWork>();
         var interfaceRepository = typeof(IRepository<>).Assembly.GetTypes()
             .Where(t => t.Name.StartsWith("IRepository") && t.IsInterface);
