@@ -43,5 +43,9 @@
 
 
 
+   # Postman
 
+4. **Coleção Postman para Testes e Melhoria da Experiência**
+	- A fim de promover uma experiência mais refinada e eficiente durante o desenvolvimento e teste da nossa API de Gerenciamento de Tarefas, apresento a coleção Postman abaixo. Esta coleção é projetada para facilitar o processo de teste, identificação de melhorias e validação de novas implementações. Por favor, utilize esta coleção como uma ferramenta valiosa para garantir a qualidade e robustez do nosso sistema.
+  
 	

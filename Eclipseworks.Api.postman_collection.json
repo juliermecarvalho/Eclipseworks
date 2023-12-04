@@ -1,0 +1,1131 @@
+{
+	"info": {
+		"_postman_id": "69bcaafe-cdfb-4d43-b605-5421d13182d6",
+		"name": "Eclipseworks.Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "408106"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "v1",
+					"item": [
+						{
+							"name": "historico",
+							"item": [
+								{
+									"name": "listar",
+									"item": [
+										{
+											"name": "/api/v1/historico/listar",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain; x-api-version=1.0"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/historico/listar",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"historico",
+														"listar"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "Success",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain; x-api-version=1.0"
+															},
+															{
+																"description": "Added as a part of security scheme: apikey",
+																"key": "Authorization",
+																"value": "<API Key>"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/historico/listar",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"historico",
+																"listar"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json; x-api-version=1.0"
+														}
+													],
+													"cookie": [],
+													"body": "[\n  {\n    \"data\": \"<dateTime>\",\n    \"usuarioId\": \"<long>\",\n    \"nomeUsuario\": \"<string>\",\n    \"operacao\": \"<string>\",\n    \"campo\": \"<string>\",\n    \"valorAntigo\": \"<string>\",\n    \"novoValor\": \"<string>\"\n  },\n  {\n    \"data\": \"<dateTime>\",\n    \"usuarioId\": \"<long>\",\n    \"nomeUsuario\": \"<string>\",\n    \"operacao\": \"<string>\",\n    \"campo\": \"<string>\",\n    \"valorAntigo\": \"<string>\",\n    \"novoValor\": \"<string>\"\n  }\n]"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "projeto",
+							"item": [
+								{
+									"name": "listar",
+									"item": [
+										{
+											"name": "{usuarioId}",
+											"item": [
+												{
+													"name": "Listagem de Projetos - listar todos os projetos do usuário",
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain; x-api-version=1.0"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projeto/listar/:usuarioId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projeto",
+																"listar",
+																":usuarioId"
+															],
+															"variable": [
+																{
+																	"key": "usuarioId",
+																	"value": "<long>",
+																	"description": "(Required) "
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "Success",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "text/plain; x-api-version=1.0"
+																	},
+																	{
+																		"description": "Added as a part of security scheme: apikey",
+																		"key": "Authorization",
+																		"value": "<API Key>"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/projeto/listar/:usuarioId",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"projeto",
+																		"listar",
+																		":usuarioId"
+																	],
+																	"variable": [
+																		{
+																			"key": "usuarioId"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "json",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "application/json; x-api-version=1.0"
+																}
+															],
+															"cookie": [],
+															"body": "[\n  {\n    \"id\": \"<long>\",\n    \"nome\": \"<string>\",\n    \"criadorDoProjetoId\": \"<long>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"nome\": \"<string>\",\n    \"criadorDoProjetoId\": \"<long>\"\n  }\n]"
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "{id}",
+									"item": [
+										{
+											"name": "/api/v1/projeto/:id",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain; x-api-version=1.0"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projeto/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projeto",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<integer>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "Success",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain; x-api-version=1.0"
+															},
+															{
+																"description": "Added as a part of security scheme: apikey",
+																"key": "Authorization",
+																"value": "<API Key>"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projeto/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projeto",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json; x-api-version=1.0"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"id\": \"<long>\",\n  \"nome\": \"<string>\",\n  \"criadorDoProjetoId\": \"<long>\"\n}"
+												}
+											]
+										},
+										{
+											"name": "/api/v1/projeto/:id",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projeto/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projeto",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "1",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "Success",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"description": "Added as a part of security scheme: apikey",
+																"key": "Authorization",
+																"value": "<API Key>"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projeto/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projeto",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Criação de Projetos - criar um novo projeto",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json; x-api-version=1.0"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain; x-api-version=1.0"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"<long>\",\n  \"nome\": \"<string>\",\n  \"criadorDoProjetoId\": \"<long>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/projeto",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"projeto"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json; x-api-version=1.0"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain; x-api-version=1.0"
+													},
+													{
+														"description": "Added as a part of security scheme: apikey",
+														"key": "Authorization",
+														"value": "<API Key>"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"id\": \"<long>\",\n  \"nome\": \"<string>\",\n  \"criadorDoProjetoId\": \"<long>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projeto",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projeto"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json; x-api-version=1.0"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<long>\",\n  \"nome\": \"<string>\",\n  \"criadorDoProjetoId\": \"<long>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "tarefa",
+							"item": [
+								{
+									"name": "listar",
+									"item": [
+										{
+											"name": "tarefas-do-projeto",
+											"item": [
+												{
+													"name": "{projetoId}",
+													"item": [
+														{
+															"name": "Listagem de Projetos - listar todos os projetos do usuário",
+															"request": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "text/plain; x-api-version=1.0"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/tarefa/listar/tarefas-do-projeto/:projetoId",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"tarefa",
+																		"listar",
+																		"tarefas-do-projeto",
+																		":projetoId"
+																	],
+																	"variable": [
+																		{
+																			"key": "projetoId",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"response": [
+																{
+																	"name": "Success",
+																	"originalRequest": {
+																		"method": "GET",
+																		"header": [
+																			{
+																				"key": "Accept",
+																				"value": "text/plain; x-api-version=1.0"
+																			},
+																			{
+																				"description": "Added as a part of security scheme: apikey",
+																				"key": "Authorization",
+																				"value": "<API Key>"
+																			}
+																		],
+																		"url": {
+																			"raw": "{{baseUrl}}/api/v1/tarefa/listar/tarefas-do-projeto/:projetoId",
+																			"host": [
+																				"{{baseUrl}}"
+																			],
+																			"path": [
+																				"api",
+																				"v1",
+																				"tarefa",
+																				"listar",
+																				"tarefas-do-projeto",
+																				":projetoId"
+																			],
+																			"variable": [
+																				{
+																					"key": "projetoId"
+																				}
+																			]
+																		}
+																	},
+																	"status": "OK",
+																	"code": 200,
+																	"_postman_previewlanguage": "json",
+																	"header": [
+																		{
+																			"key": "Content-Type",
+																			"value": "application/json; x-api-version=1.0"
+																		}
+																	],
+																	"cookie": [],
+																	"body": "[\n  {\n    \"id\": \"<long>\",\n    \"titulo\": \"<string>\",\n    \"descricao\": \"<string>\",\n    \"detalhes\": \"<string>\",\n    \"dataVencimento\": \"<dateTime>\",\n    \"status\": \"<integer>\",\n    \"prioridade\": \"<integer>\",\n    \"projetoId\": \"<long>\",\n    \"usuarioId\": \"<long>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"titulo\": \"<string>\",\n    \"descricao\": \"<string>\",\n    \"detalhes\": \"<string>\",\n    \"dataVencimento\": \"<dateTime>\",\n    \"status\": \"<integer>\",\n    \"prioridade\": \"<integer>\",\n    \"projetoId\": \"<long>\",\n    \"usuarioId\": \"<long>\"\n  }\n]"
+																}
+															]
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "relatorios-de-desempenho",
+											"item": [
+												{
+													"name": "{usuarioId}",
+													"item": [
+														{
+															"name": "Listagem de Projetos - listar todos os projetos do usuário",
+															"request": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "text/plain; x-api-version=1.0"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/tarefa/listar/relatorios-de-desempenho/:usuarioId",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"tarefa",
+																		"listar",
+																		"relatorios-de-desempenho",
+																		":usuarioId"
+																	],
+																	"variable": [
+																		{
+																			"key": "usuarioId",
+																			"value": "1"
+																		}
+																	]
+																}
+															},
+															"response": [
+																{
+																	"name": "Success",
+																	"originalRequest": {
+																		"method": "GET",
+																		"header": [
+																			{
+																				"key": "Accept",
+																				"value": "text/plain; x-api-version=1.0"
+																			},
+																			{
+																				"description": "Added as a part of security scheme: apikey",
+																				"key": "Authorization",
+																				"value": "<API Key>"
+																			}
+																		],
+																		"url": {
+																			"raw": "{{baseUrl}}/api/v1/tarefa/listar/tarefas-do-projeto/:projetoId",
+																			"host": [
+																				"{{baseUrl}}"
+																			],
+																			"path": [
+																				"api",
+																				"v1",
+																				"tarefa",
+																				"listar",
+																				"tarefas-do-projeto",
+																				":projetoId"
+																			],
+																			"variable": [
+																				{
+																					"key": "projetoId"
+																				}
+																			]
+																		}
+																	},
+																	"status": "OK",
+																	"code": 200,
+																	"_postman_previewlanguage": "json",
+																	"header": [
+																		{
+																			"key": "Content-Type",
+																			"value": "application/json; x-api-version=1.0"
+																		}
+																	],
+																	"cookie": [],
+																	"body": "[\n  {\n    \"id\": \"<long>\",\n    \"titulo\": \"<string>\",\n    \"descricao\": \"<string>\",\n    \"detalhes\": \"<string>\",\n    \"dataVencimento\": \"<dateTime>\",\n    \"status\": \"<integer>\",\n    \"prioridade\": \"<integer>\",\n    \"projetoId\": \"<long>\",\n    \"usuarioId\": \"<long>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"titulo\": \"<string>\",\n    \"descricao\": \"<string>\",\n    \"detalhes\": \"<string>\",\n    \"dataVencimento\": \"<dateTime>\",\n    \"status\": \"<integer>\",\n    \"prioridade\": \"<integer>\",\n    \"projetoId\": \"<long>\",\n    \"usuarioId\": \"<long>\"\n  }\n]"
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "{id}",
+									"item": [
+										{
+											"name": "atualizar-status ",
+											"item": [
+												{
+													"name": "Atualização de Tarefas - atualizar o status ou detalhes de uma tarefa",
+													"request": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json; x-api-version=1.0"
+															},
+															{
+																"key": "Accept",
+																"value": "text/plain; x-api-version=1.0"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"titulo\": \"<string>\",\n  \"descricao\": \"<string>\",\n  \"detalhes\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"usuarioId\": \"<long>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/tarefa/:id/atualizar-status ",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"tarefa",
+																":id",
+																"atualizar-status "
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "<long>",
+																	"description": "(Required) "
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "Success",
+															"originalRequest": {
+																"method": "PUT",
+																"header": [
+																	{
+																		"key": "Content-Type",
+																		"value": "application/json; x-api-version=1.0"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "text/plain; x-api-version=1.0"
+																	},
+																	{
+																		"description": "Added as a part of security scheme: apikey",
+																		"key": "Authorization",
+																		"value": "<API Key>"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\n  \"titulo\": \"<string>\",\n  \"descricao\": \"<string>\",\n  \"detalhes\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"usuarioId\": \"<long>\"\n}",
+																	"options": {
+																		"raw": {
+																			"headerFamily": "json",
+																			"language": "json"
+																		}
+																	}
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/tarefa/:id/atualizar-status ",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"tarefa",
+																		":id",
+																		"atualizar-status "
+																	],
+																	"variable": [
+																		{
+																			"key": "id"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "json",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "application/json; x-api-version=1.0"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"id\": \"<long>\",\n  \"titulo\": \"<string>\",\n  \"descricao\": \"<string>\",\n  \"detalhes\": \"<string>\",\n  \"dataVencimento\": \"<dateTime>\",\n  \"status\": \"<integer>\",\n  \"prioridade\": \"<integer>\",\n  \"projetoId\": \"<long>\",\n  \"usuarioId\": \"<long>\"\n}"
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "/api/v1/tarefa/:id",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain; x-api-version=1.0"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/tarefa/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"tarefa",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<integer>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "Success",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain; x-api-version=1.0"
+															},
+															{
+																"description": "Added as a part of security scheme: apikey",
+																"key": "Authorization",
+																"value": "<API Key>"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/tarefa/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"tarefa",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json; x-api-version=1.0"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"id\": \"<long>\",\n  \"titulo\": \"<string>\",\n  \"descricao\": \"<string>\",\n  \"detalhes\": \"<string>\",\n  \"dataVencimento\": \"<dateTime>\",\n  \"status\": \"<integer>\",\n  \"prioridade\": \"<integer>\",\n  \"projetoId\": \"<long>\",\n  \"usuarioId\": \"<long>\"\n}"
+												}
+											]
+										},
+										{
+											"name": "Remoção de Tarefas - remover uma tarefa de um projeto",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/tarefa/:id?usuarioId=<long>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"tarefa",
+														":id"
+													],
+													"query": [
+														{
+															"key": "usuarioId",
+															"value": "<long>"
+														}
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "Success",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"description": "Added as a part of security scheme: apikey",
+																"key": "Authorization",
+																"value": "<API Key>"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/tarefa/:id?usuarioId=<long>",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"tarefa",
+																":id"
+															],
+															"query": [
+																{
+																	"key": "usuarioId",
+																	"value": "<long>"
+																}
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												}
+											]
+										},
+										{
+											"name": "Comentários nas Tarefas",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain; x-api-version=1.0"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/tarefa/:id?usuarioId=1&texto=texto de comentario",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"tarefa",
+														":id"
+													],
+													"query": [
+														{
+															"key": "usuarioId",
+															"value": "1"
+														},
+														{
+															"key": "texto",
+															"value": "texto de comentario"
+														}
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "8",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "Success",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain; x-api-version=1.0"
+															},
+															{
+																"description": "Added as a part of security scheme: apikey",
+																"key": "Authorization",
+																"value": "<API Key>"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/tarefa/:id?usuarioId=<long>&texto=<string>",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"tarefa",
+																":id"
+															],
+															"query": [
+																{
+																	"key": "usuarioId",
+																	"value": "<long>"
+																},
+																{
+																	"key": "texto",
+																	"value": "<string>"
+																}
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json; x-api-version=1.0"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"id\": \"<long>\",\n  \"titulo\": \"<string>\",\n  \"descricao\": \"<string>\",\n  \"detalhes\": \"<string>\",\n  \"dataVencimento\": \"<dateTime>\",\n  \"status\": \"<integer>\",\n  \"prioridade\": \"<integer>\",\n  \"projetoId\": \"<long>\",\n  \"usuarioId\": \"<long>\"\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Criação de Tarefas - adicionar uma nova tarefa a um projeto",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json; x-api-version=1.0"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain; x-api-version=1.0"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": 0,\n  \"titulo\": \"Tarefa 01\",\n  \"descricao\": \"uma descricao\",\n  \"detalhes\": \"string\",\n  \"dataVencimento\": \"2024-12-01\",\n  \"status\": 0,\n  \"projetoId\": 2,\n  \"usuarioId\": 1\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/tarefa",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"tarefa"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json; x-api-version=1.0"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain; x-api-version=1.0"
+													},
+													{
+														"description": "Added as a part of security scheme: apikey",
+														"key": "Authorization",
+														"value": "<API Key>"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"id\": \"<long>\",\n  \"titulo\": \"<string>\",\n  \"descricao\": \"<string>\",\n  \"detalhes\": \"<string>\",\n  \"dataVencimento\": \"<dateTime>\",\n  \"status\": \"<integer>\",\n  \"prioridade\": \"<integer>\",\n  \"projetoId\": \"<long>\",\n  \"usuarioId\": \"<long>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/tarefa",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"tarefa"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json; x-api-version=1.0"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<long>\",\n  \"titulo\": \"<string>\",\n  \"descricao\": \"<string>\",\n  \"detalhes\": \"<string>\",\n  \"dataVencimento\": \"<dateTime>\",\n  \"status\": \"<integer>\",\n  \"prioridade\": \"<integer>\",\n  \"projetoId\": \"<long>\",\n  \"usuarioId\": \"<long>\"\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "{{apiKey}}",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5001"
+		}
+	]
+}
