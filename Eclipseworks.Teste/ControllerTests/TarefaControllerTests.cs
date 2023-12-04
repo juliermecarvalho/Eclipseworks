@@ -61,6 +61,39 @@ public class TarefaControllerTests
 
     }
 
+    [Test]
+    public async Task GerarRelatóriosDeDesempenho()
+    {
+        // Arrange
+        var entidades = new List<Tarefa> { new Tarefa { } };
+        var models = new List<TarefaModel> { new TarefaModel { } };
+        var usuarioId = 1;
+        Expression<Func<Tarefa, bool>> filtro = p => p.ProjetoId == usuarioId;
+        _mapper.Setup(m => m.Map<List<Tarefa>>(models)).Returns(entidades);
+        _mapper.Setup(m => m.Map<List<TarefaModel>>(entidades)).Returns(models);
+        _mockRepositoryTarefa.Setup(r => r.ListAsync(
+            It.IsAny<Expression<Func<Tarefa, bool>>>(), // Filtro
+            It.IsAny<Func<IQueryable<Tarefa>, IOrderedQueryable<Tarefa>>>(), // Ordenação
+            It.IsAny<bool>(), // AsNoTracking
+            It.IsAny<Expression<Func<Tarefa, object>>[]>() // Includes
+        )).ReturnsAsync(entidades);
+
+        // Act
+        var resultado = await _tarefaController.GerarRelatóriosDeDesempenho(usuarioId);
+
+        // Assert
+        Assert.IsInstanceOf<ActionResult<IList<TarefaModel>>>(resultado);
+        Assert.IsInstanceOf<List<TarefaModel>>(resultado.Value);
+        Assert.AreEqual(entidades.Count, resultado.Value.Count);
+        _mockRepositoryTarefa.Verify(r => r.ListAsync(
+            It.IsAny<Expression<Func<Tarefa, bool>>>(), // Filtro
+            It.IsAny<Func<IQueryable<Tarefa>, IOrderedQueryable<Tarefa>>>(), // Ordenação
+            It.IsAny<bool>(), // AsNoTracking
+            It.IsAny<Expression<Func<Tarefa, object>>[]>() // Includes
+        ), Times.Once);
+
+    }
+
 
     [Test]
     public async Task Get_DeveRetornarTarefaPorId()
@@ -183,4 +216,92 @@ public class TarefaControllerTests
         _mockRepositoryTarefa.Verify(r => r.DeleteAsync(id), Times.Once);
         _mockRepositoryTarefa.Verify(r => r.CommitAsync(usuarioId), Times.Once);
     }
+
+    [Test]
+    public async Task Post_DeveRetornarBadRequestQuandoLimiteDeTarefasExcedido()
+    {
+        // Arrange
+        var projetoId = 1;
+        var model = new TarefaModel
+        {
+            ProjetoId = projetoId,
+            // Preencha outros campos do modelo conforme necessário
+        };
+
+
+
+        var tarefasNoProjeto = new List<Tarefa>();
+        for (int i = 0; i < 30; i++)
+        {
+            tarefasNoProjeto.Add(new Tarefa());
+        }
+
+
+
+        _mockRepositoryTarefa.Setup(repo => repo.ListAsync(
+                It.IsAny<Expression<Func<Tarefa, bool>>>(), // Filtro
+                It.IsAny<Func<IQueryable<Tarefa>, IOrderedQueryable<Tarefa>>>(), // Ordenação
+                It.IsAny<bool>(), // AsNoTracking
+                It.IsAny<Expression<Func<Tarefa, object>>[]>() // Includes
+            ))
+                              .ReturnsAsync(tarefasNoProjeto);
+
+        // Act
+        var result = await _tarefaController.Post(model);
+
+        // Assert
+        Assert.IsInstanceOf<BadRequestObjectResult>(result.Result);
+        var badRequestResult = result.Result as BadRequestObjectResult;
+        Assert.IsNotNull(badRequestResult);
+        Assert.AreEqual("Limite máximo de 20 tarefas por projeto", badRequestResult.Value);
+        _mockRepositoryTarefa.Verify(repo => repo.SaveAsync(It.IsAny<Tarefa>()), Times.Never);
+        _mockRepositoryTarefa.Verify(repo => repo.CommitAsync(It.IsAny<long>()), Times.Never);
+    }
+
+    [Test]
+    public async Task Post_DeveSalvarTarefaQuandoLimiteNaoExcedido()
+    {
+        // Arrange
+        var projetoId = 2;
+        var model = new TarefaModel
+        {
+            ProjetoId = projetoId,
+            // Preencha outros campos do modelo conforme necessário
+        };
+
+        var tarefa = new Tarefa
+        {
+            ProjetoId = projetoId,
+            // Preencha outros campos do modelo conforme necessário
+        };
+
+        var tarefasNoProjeto = Enumerable.Range(1, 19).Select(i => new Tarefa()).ToList(); 
+        _mockRepositoryTarefa.Setup(repo => repo.ListAsync(
+                It.IsAny<Expression<Func<Tarefa, bool>>>(), // Filtro
+                It.IsAny<Func<IQueryable<Tarefa>, IOrderedQueryable<Tarefa>>>(), // Ordenação
+                It.IsAny<bool>(), // AsNoTracking
+                It.IsAny<Expression<Func<Tarefa, object>>[]>() // Includes
+                ))
+                              .ReturnsAsync(tarefasNoProjeto);
+
+        _mapper.Setup(m => m.Map<Tarefa>(model)).Returns(tarefa);
+        _mapper.Setup(m => m.Map<TarefaModel>(tarefa)).Returns(model);
+
+        var tarefaSalva = new Tarefa(); 
+        _mockRepositoryTarefa.Setup(repo => repo.SaveAsync(It.IsAny<Tarefa>()))
+                              .Callback<Tarefa>(t => tarefaSalva = t)
+                              .Returns(Task.CompletedTask);
+
+        // Act
+        var result = await _tarefaController.Post(model);
+
+        // Assert
+        Assert.IsInstanceOf<ActionResult<TarefaModel>>(result);
+        var createdResult = (ActionResult<TarefaModel>)result.Value;
+        Assert.IsNotNull(createdResult);
+        Assert.IsNotNull(createdResult.Value);
+        Assert.AreSame(model, createdResult.Value); 
+        _mockRepositoryTarefa.Verify(repo => repo.CommitAsync(It.IsAny<long>()), Times.Once);
+    }
+
 }

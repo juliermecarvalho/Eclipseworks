@@ -8,7 +8,6 @@ public class Tarefa : Entity
     public string Descricao { get; set; }
     public DateTime DataVencimento { get; set; }
     public DateTime? DataConclucao { get; set; }
-
     public Status Status  { get; set; }
     public Prioridade Prioridade  { get; private set; }
     public long ProjetoId { get; set; }

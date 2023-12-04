@@ -79,6 +79,7 @@ namespace Eclipseworks.Persistencia.Migrations
                     titulo = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     descricao = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     data_vencimento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataConclucao = table.Column<DateTime>(type: "datetime2", nullable: true),
                     status = table.Column<int>(type: "int", nullable: false),
                     Prioridade = table.Column<int>(type: "int", nullable: false),
                     projeto_id = table.Column<long>(type: "bigint", nullable: false),

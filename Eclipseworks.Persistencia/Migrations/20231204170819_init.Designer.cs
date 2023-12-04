@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eclipseworks.Persistencia.Migrations
 {
     [DbContext(typeof(EclipseworksContext))]
-    [Migration("20231201194420_init")]
+    [Migration("20231204170819_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -134,6 +134,9 @@ namespace Eclipseworks.Persistencia.Migrations
                         .HasColumnName("id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("DataConclucao")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataVencimento")
                         .HasColumnType("datetime2")

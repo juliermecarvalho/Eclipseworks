@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using AutoMapper;
 using Eclipseworks.Api.Models;
 using Eclipseworks.Api.Validation.ValidateAttribute;
@@ -45,6 +44,8 @@ public class TarefaController : ControllerBase
     [HttpGet("listar/relatorios-de-desempenho/{usuarioId:long}")]
     public async Task<ActionResult<IList<TarefaModel>>> GerarRelatóriosDeDesempenho([FromRoute] long usuarioId)
     {
+        
+
         var dt = DateTime.Now.AddDays(-30);
         var entidades = await _repositoryTarefa.ListAsync(filter: t => t.UsuarioId == usuarioId && t.Status == Status.Concluida && t.DataVencimento > dt);
         return _mapper.Map<List<TarefaModel>>(entidades);
@@ -154,4 +155,6 @@ public class TarefaController : ControllerBase
         await _repositoryTarefa.CommitAsync(usuarioId);
         return _mapper.Map<TarefaModel>(entidade);
     }
+
+
 }

@@ -1,7 +1,5 @@
-using System.Linq.Expressions;
 using AutoMapper;
 using Eclipseworks.Api.Models;
-using Eclipseworks.Dominio.Core;
 using Eclipseworks.Dominio.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
